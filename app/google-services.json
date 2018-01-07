@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "854157618478",
+    "firebase_url": "https://word-nerd-b2d37.firebaseio.com",
+    "project_id": "word-nerd-b2d37",
+    "storage_bucket": "word-nerd-b2d37.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:854157618478:android:1135a31cadded69b",
+        "android_client_info": {
+          "package_name": "me.siavash.android.wotd"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "854157618478-65u32icgsuvpe7mbei2kir2t74ii45k1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "me.siavash.android.wotd",
+            "certificate_hash": "616777ee7607527d2e3994472d1c551a0880bc6b"
+          }
+        },
+        {
+          "client_id": "854157618478-0jr70rsr17rmac91n074phomlgk42ghu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDRszl2Gv1EUXOLE34Ttz-8-ZJPuYbcSYM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "854157618478-0jr70rsr17rmac91n074phomlgk42ghu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

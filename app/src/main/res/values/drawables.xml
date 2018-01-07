@@ -1,0 +1,7 @@
+<resources>
+    <item name="ic_menu_about" type="drawable">@drawable/ic_info_black_24dp</item>
+    <item name="ic_toolbar_calendar" type="drawable">@drawable/ic_date_range_white_48dp</item>
+    <item name="ic_menu_favorite" type="drawable">@drawable/ic_favorite_white_48dp</item>
+    <item name="ic_menu_recent_history" type="drawable">@drawable/ic_history_white_48dp</item>
+    <item name="ic_menu_home" type="drawable">@drawable/ic_home</item>
+</resources>

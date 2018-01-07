@@ -1,0 +1,80 @@
+<resources>
+    <string name="app_name">Word of the day</string>
+    <string name="app_version">Version %1$s</string>
+
+    <string name="title_activity_main2">Arcihve</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="send_to">share</string>
+    <string name="exporttoankiimageview">ExportToAnkiImageView</string>
+    <string name="shareimageviewflashcard">ShareImageViewFlashCard</string>
+    <string name="likeimage">LikeImage</string>
+    <string name="definition">Definition:</string>
+    <string name="examples">Examples:</string>
+    <string name="did_you_know">Did you know?</string>
+    <string name="title_activity_favorites">Favorite Words</string>
+    <string name="title_activity_history">Recent Words</string>
+    <string name="title_activity_splash">Splash</string>
+
+    <string name="slide1_title">Welcome!</string>
+    <string name="slide1_description">Enjoy over 10 years of Merriam Webster word of the day and listen to Peter Sokolowski explaining each word!</string>
+    <string name="slide2_title">Works best with Anki</string>
+    <string name="slide2_description">Anki is a flashcard app and  lets you learn new words very efficiently.
+    "\nDownload "AnkiDroid Flashcards" from Google play and start exporting vocabularies.</string>
+    <string name="slide3_title"></string>
+    <string name="slide3_description"></string>
+    <string name="slide4_title"></string>
+    <string name="slide4_description"></string>
+
+    <string name="title_activity_main">MainActivity</string>
+    <string name="progress_dialog">Loading Podcast…</string>
+    <string name="please_wait">Please wait…</string>
+    <string name="NO_NETWORK_ACCESS_MESSAGE">Network access is required for this operation</string>
+    <string name="XML_PARSE_ERROR">This operation is not available at this moment, Please try later.</string>
+    <string name="permission_denied">Couldn\\\'t get permission to access the AnkiDroid database</string>
+    <string name="mw_credit">Powered by Merriam-Webster\'s Collegiate® Dictionary.</string>
+    <string name="more_words">More Words!</string>
+    <string name="previous">Previous</string>
+    <string name="archive">Archive</string>
+    <string name="next">next</string>
+    <string name="about">About</string>
+    <string name="title_activity_about">AboutActivity</string>
+    <string name="about_1">Developed by Siavash Sedghi.
+      "\nContact by email at info@siavash.me"</string>
+    <string name="about_2">This application is open source under the Apache 2.0 license. Contribute by forking the repository at github.com/siavash1986/mw_word_of_the_day_android
+       "\nand Report problems there
+        "\nApp\'s web page: www.siavash.me/apps/wotd"</string>
+    <string name="tell_your_friends_msg">Download Word of the day app!</string>
+    <string name="tell_your_friends">Share app with your friend</string>
+
+    <string name="opensource_licenses">Open Source Licenses</string>
+
+    <string name="contentDescriptionPronounce">Pronunciation</string>
+    <string name="contentDescriptionStop">Stop</string>
+    <string name="contentDescriptionPlay">Play</string>
+    <string name="contentDescriptionCalendar">Calendar</string>
+    <string name="contentDescriptionLogo">Logo</string>
+    <string name="contentDescriptionNextWord">Next Word</string>
+    <string name="contentDescriptionPreviousWord">Previous Word</string>
+    <string name="contentDescriptionArchive">Archive</string>
+    <string name="contentDescriptionHistory">Recent Words</string>
+    <string name="contentDescriptionFav">Favorite</string>
+    <string name="contentDescriptionShare">Share</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_Favorite">Favorite</string>
+    <string name="menu_Archive">Archive</string>
+    <string name="menu_history">Recent Words</string>
+    <string name="menu_communicate">Communicate</string>
+    <string name="menu_share">Share</string>
+    <string name="menu_about">About</string>
+
+    <string name="merriam_webster_s_word_of_the_day">Merriam Webster\'s Word of the Day</string>
+
+    <string name="ImportAnkiDialogTitle">Export Again?</string>
+    <string name="ImportAnkiDialogContent">This word have already been added to Anki Flash Card, Do you want to add again?</string>
+    <string name="ImportAnkiDialogYes">Yes</string>
+    <string name="ImportAnkiDialogNo">No</string>
+
+</resources>

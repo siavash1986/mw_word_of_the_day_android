@@ -1,0 +1,87 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "e8a5b4b4939ebacb9fe9e77ddc1f8073",
+    "entities": [
+      {
+        "tableName": "Word",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`date` TEXT NOT NULL, `title` TEXT, `attribute` TEXT, `syllables` TEXT, `definition` TEXT, `examples` TEXT, `didYouKnow` TEXT, `fav` INTEGER NOT NULL, `importedToAnki` INTEGER NOT NULL, `LastVisitTimeStamp` INTEGER NOT NULL, PRIMARY KEY(`date`))",
+        "fields": [
+          {
+            "fieldPath": "date",
+            "columnName": "date",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "title",
+            "columnName": "title",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "attribute",
+            "columnName": "attribute",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "syllables",
+            "columnName": "syllables",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "definition",
+            "columnName": "definition",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "examples",
+            "columnName": "examples",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "didYouKnow",
+            "columnName": "didYouKnow",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "fav",
+            "columnName": "fav",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "importedToAnki",
+            "columnName": "importedToAnki",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "LastVisitTimeStamp",
+            "columnName": "LastVisitTimeStamp",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "date"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"e8a5b4b4939ebacb9fe9e77ddc1f8073\")"
+    ]
+  }
+}
