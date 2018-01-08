@@ -4,4 +4,5 @@
     <item name="ic_menu_favorite" type="drawable">@drawable/ic_favorite_white_48dp</item>
     <item name="ic_menu_recent_history" type="drawable">@drawable/ic_history_white_48dp</item>
     <item name="ic_menu_home" type="drawable">@drawable/ic_home</item>
+    <item name="ic_menu_share" type="drawable">@drawable/ic_share</item>
 </resources>
