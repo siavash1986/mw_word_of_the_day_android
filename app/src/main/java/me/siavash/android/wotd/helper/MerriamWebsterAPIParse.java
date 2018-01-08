@@ -21,7 +21,6 @@ public class MerriamWebsterAPIParse {
       int index = 0;
       while (parser.next() != -1) {
         String name = parser.getName();
-        System.out.println(name);
         index++;
         if (name != null && name.equals("wav")) {
           attributeValue = parser.nextText();
