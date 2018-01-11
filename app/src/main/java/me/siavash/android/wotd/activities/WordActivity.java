@@ -1,6 +1,5 @@
 package me.siavash.android.wotd.activities;
 
-import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -79,7 +78,6 @@ public class WordActivity extends AppCompatActivity
   private static final int AD_PERM_REQUEST = 0;
   private final String TAG = this.getClass().getSimpleName();
   private Word word;
-  private NotificationManager mNotificationManager;
   private MaterialDialog.Builder mProgressBarBuilder;
   private MaterialDialog mProgressBarDialog;
   private boolean mShouldDisplayProgressDialog = true;
@@ -235,8 +233,17 @@ public class WordActivity extends AppCompatActivity
       isAnkiInstalled = false;
     }
 
-    if (!isAnkiInstalled)
-      installAnki();
+    if (!isAnkiInstalled) {
+      new MaterialDialog.Builder(this)
+          .title("Anki not found")
+          .content("Do you want to install Anki Flash Card?")
+          .positiveText("Yes")
+          .negativeText("No")
+          .onPositive((d, w) -> installAnki())
+          .onNegative((d, w) -> d.dismiss())
+          .show();
+    }
+
     else if (mAnkiDroid.shouldRequestPermission())
       mAnkiDroid.requestPermission(this, AD_PERM_REQUEST);
     else{
@@ -256,8 +263,20 @@ public class WordActivity extends AppCompatActivity
   }
 
   private void addCardsToAnkiDroid(Word word) {
-    long deckId = getDeckId();
-    long modelId = getModelId();
+    long deckId = 0;
+    long modelId = 0;
+    try{
+      deckId = getDeckId();
+      modelId = getModelId();
+    }catch (Exception e){
+      new MaterialDialog.Builder(this)
+          .title("Anki's permissions are missing!")
+          .content("Please run Anki Flash Card and grant required permissions and try again.")
+          .positiveText("OK")
+          .show();
+      return;
+    }
+
     String[] fieldNames = serializeWord(word, mAnkiDroid.getApi().getFieldList(modelId));
     Set<String> tags = new HashSet<>();
 
@@ -298,7 +317,6 @@ public class WordActivity extends AppCompatActivity
 
   private void initView(Word word) {
     ButterKnife.bind(this);
-    mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
     if (word != null) {
       this.word = word;
@@ -351,7 +369,7 @@ public class WordActivity extends AppCompatActivity
 
   private void installAnki() {
     Intent intent = new Intent(Intent.ACTION_VIEW);
-    intent.setData(Uri.parse("https://play.google.com/store/apps/details?id=com.ichi2.anki"));
+    intent.setData(Uri.parse("market://details?id=com.ichi2.anki"));
     startActivity(intent);
   }
 
