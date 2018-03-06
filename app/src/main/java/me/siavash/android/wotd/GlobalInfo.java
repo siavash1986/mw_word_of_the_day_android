@@ -17,6 +17,7 @@ public class GlobalInfo {
   public static final String RESET_SERVER_BATCH_ENDPOINT = "//batch/flatwords";
   public static final String RESET_SERVER_ENDPOINT = "//word//flat";
   public static final String GOOGLE_PLAY_URL = "https://play.google.com/store/apps/details?id=";
+  public static final String AMAZON_S3 = "https://s3.us-east-2.amazonaws.com/mwwottd/words/wd";
 
   public static final String KEY_LAST_SYNC = "LAST_SYNC";
 

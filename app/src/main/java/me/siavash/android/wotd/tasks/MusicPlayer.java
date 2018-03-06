@@ -139,8 +139,6 @@ public class MusicPlayer extends BroadcastReceiver
       mPlayer.setDataSource(uri.toString());
       mPlayer.prepareAsync();
     } catch (IOException | IllegalStateException e) {
-      //TODO: give it another try with Amazon S3
-      e.printStackTrace();
       FirebaseCrash.report(e);
     }
 

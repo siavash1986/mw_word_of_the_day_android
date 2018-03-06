@@ -17,6 +17,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
+import me.siavash.android.wotd.GlobalInfo;
 import me.siavash.android.wotd.database.WordDatabase;
 import me.siavash.android.wotd.entities.Word;
 
@@ -117,11 +118,8 @@ public class Utils {
     return false;
   }
 
-  public static Uri[] getPodcastUri(Word w) {
-    Uri uris[] = new Uri[2];
-    uris[0] = Uri.parse("http://condor.eb.com/word/podcast/wd" + w.getDate().replace("-", "") + ".mp3");
-    uris[1] = Uri.parse("https://s3.us-east-2.amazonaws.com/mwwottd/words/wd" + w.getDate().replace("-", "") + ".mp3");
-    return uris;
+  public static Uri getPodcastUri(Word w) {
+    return Uri.parse(GlobalInfo.AMAZON_S3 + w.getDate().replace("-","") + ".mp3");
   }
 
   public static void makeToast(Context context, String message) {

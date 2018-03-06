@@ -199,7 +199,7 @@ public class WordActivity extends AppCompatActivity
       }
       flipState();
       LocalBroadcastManager.getInstance(this)
-          .sendBroadcast(MusicPlayer.makeIntent("play/pause", Utils.getPodcastUri(word)[0]));
+          .sendBroadcast(MusicPlayer.makeIntent("play/pause", Utils.getPodcastUri(word)));
     }
   }
 
@@ -341,7 +341,7 @@ public class WordActivity extends AppCompatActivity
           R.drawable.ic_favorite_black_48dp :
           R.drawable.ic_favorite_border_black_48dp);
 
-      if (MusicPlayer.getMusicPlayingNow().equals(Utils.getPodcastUri(word)[0].toString())) {
+      if (MusicPlayer.getMusicPlayingNow().equals(Utils.getPodcastUri(word).toString())) {
         setToPauseState();
         mShouldDisplayProgressDialog = false;
       }
