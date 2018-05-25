@@ -23,7 +23,6 @@ import org.joda.time.Days;
 import org.joda.time.LocalDate;
 
 import me.siavash.android.wotd.R;
-import me.siavash.android.wotd.util.SmoothLayoutManager;
 import me.siavash.android.wotd.entities.Word;
 import me.siavash.android.wotd.entities.model.WordViewModel;
 import me.siavash.android.wotd.listeners.DataSourceChangeListener;
@@ -41,7 +40,7 @@ public class CardFragment extends Fragment implements DataSourceChangeListener {
   public void notifyDateRequest(LocalDate dateRequest) {
     int dx = Days.daysBetween(dateRequest, Utils.getLatestWordLocalDate(getContext())).getDays();
     if (MyRecyclerView != null) {
-      MyRecyclerView.smoothScrollToPosition(dx);
+      MyRecyclerView.scrollToPosition(dx);
     }
   }
 
@@ -80,8 +79,8 @@ public class CardFragment extends Fragment implements DataSourceChangeListener {
     View view = inflater.inflate(R.layout.fragment_card, container, false);
     MyRecyclerView = view.findViewById(R.id.cardView);
     MyRecyclerView.setHasFixedSize(true);
-    LinearLayoutManager MyLayoutManager = new SmoothLayoutManager(getActivity());
-    MyLayoutManager.setSmoothScrollbarEnabled(true);
+    LinearLayoutManager MyLayoutManager = new LinearLayoutManager(getActivity());
+    MyLayoutManager.setSmoothScrollbarEnabled(false);
     MyLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
     if (MyRecyclerView != null) {
       MyRecyclerView.setAdapter(adapter);
