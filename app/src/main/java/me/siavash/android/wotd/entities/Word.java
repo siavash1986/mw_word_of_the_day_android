@@ -25,6 +25,8 @@ public class Word implements Comparable<Word> {
 
   private String didYouKnow;
 
+  private String pronunciationUrl;
+
   private boolean fav;
 
   private boolean importedToAnki;
@@ -100,6 +102,14 @@ public class Word implements Comparable<Word> {
 
   public String getPodcastUrl() {
     return "http://condor.eb.com/word/podcast/wd" + this.getDate().replace("-", "") + ".mp3";
+  }
+
+  public String getPronunciationUrl() {
+    return pronunciationUrl;
+  }
+
+  public void setPronunciationUrl(String pronunciationUrl) {
+    this.pronunciationUrl = pronunciationUrl;
   }
 
   public long getLastVisitTimeStamp() {
