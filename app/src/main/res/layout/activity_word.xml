@@ -193,7 +193,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/textView16" />
 
                 <ImageButton
-                    android:id="@+id/imageButton"
+                    android:id="@+id/pronunciationButton"
                     android:onClick="pronounceWord"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
