@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "e8a5b4b4939ebacb9fe9e77ddc1f8073",
+    "identityHash": "e262a601fae6198d73d7e26354967026",
     "entities": [
       {
         "tableName": "Word",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`date` TEXT NOT NULL, `title` TEXT, `attribute` TEXT, `syllables` TEXT, `definition` TEXT, `examples` TEXT, `didYouKnow` TEXT, `fav` INTEGER NOT NULL, `importedToAnki` INTEGER NOT NULL, `LastVisitTimeStamp` INTEGER NOT NULL, PRIMARY KEY(`date`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`date` TEXT NOT NULL, `title` TEXT, `attribute` TEXT, `syllables` TEXT, `definition` TEXT, `examples` TEXT, `didYouKnow` TEXT, `pronounceUrl` TEXT, `fav` INTEGER NOT NULL, `importedToAnki` INTEGER NOT NULL, `LastVisitTimeStamp` INTEGER NOT NULL, PRIMARY KEY(`date`))",
         "fields": [
           {
             "fieldPath": "date",
@@ -51,6 +51,12 @@
             "notNull": false
           },
           {
+            "fieldPath": "pronounceUrl",
+            "columnName": "pronounceUrl",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
             "fieldPath": "fav",
             "columnName": "fav",
             "affinity": "INTEGER",
@@ -81,7 +87,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"e8a5b4b4939ebacb9fe9e77ddc1f8073\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"e262a601fae6198d73d7e26354967026\")"
     ]
   }
 }
