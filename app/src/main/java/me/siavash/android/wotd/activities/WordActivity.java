@@ -1,12 +1,10 @@
 package me.siavash.android.wotd.activities;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.content.LocalBroadcastManager;
@@ -25,7 +23,6 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.IOException;
-import java.lang.ref.WeakReference;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.Executors;
@@ -37,16 +34,12 @@ import me.siavash.android.wotd.database.WordDatabase;
 import me.siavash.android.wotd.entities.Word;
 import me.siavash.android.wotd.helper.AnkiDroidConfig;
 import me.siavash.android.wotd.helper.AnkiDroidHelper;
-import me.siavash.android.wotd.helper.MerriamWebsterAPIParse;
 import me.siavash.android.wotd.listeners.DatabaseTaskListener;
 import me.siavash.android.wotd.listeners.MediaPlayerEvents;
 import me.siavash.android.wotd.tasks.MusicPlayer;
 import me.siavash.android.wotd.tasks.RetrieveWordTask;
 import me.siavash.android.wotd.util.DifferedEntityUpdate;
 import me.siavash.android.wotd.util.Utils;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 
 public class WordActivity extends AppCompatActivity
     implements DatabaseTaskListener {
@@ -73,6 +66,8 @@ public class WordActivity extends AppCompatActivity
   ImageView playOrPauseImageView;
   @BindView(R.id.stopPodcastImageView)
   ImageView stopImageView;
+  @BindView(R.id.pronunciationButton)
+  ImageView pronunciationImageView;
 
 
   private static final int AD_PERM_REQUEST = 0;
@@ -181,11 +176,22 @@ public class WordActivity extends AppCompatActivity
     if (!Utils.connectedToInternet(this)) {
       Utils.makeToast(this, getString(R.string.NO_NETWORK_ACCESS_MESSAGE));
     } else {
-      String url = "http://www.dictionaryapi.com/api/v1/references/collegiate/xml/"
-          + word.getTitle()
-          + "?key=" + getString(R.string.MerriamWebsterAPIKey);
 
-      new getPronunce(this).execute(url);
+      new Thread(() -> {
+
+        MediaPlayer mediaPlayer = new MediaPlayer();
+        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        mediaPlayer.setOnPreparedListener(MediaPlayer::start);
+
+        try {
+          mediaPlayer.setDataSource(word.getPronounceUrl());
+          mediaPlayer.prepareAsync();
+        } catch (IOException e) {
+          e.printStackTrace();
+          FirebaseCrash.report(e);
+            Utils.makeToast(this, getString(R.string.XML_PARSE_ERROR));
+        }
+      }).start();
     }
   }
 
@@ -341,6 +347,10 @@ public class WordActivity extends AppCompatActivity
           R.drawable.ic_favorite_black_48dp :
           R.drawable.ic_favorite_border_black_48dp);
 
+      if (word.getPronounceUrl().equals("")){
+        this.pronunciationImageView.setVisibility(View.INVISIBLE);
+      }
+
       if (MusicPlayer.getMusicPlayingNow().equals(Utils.getPodcastUri(word).toString())) {
         setToPauseState();
         mShouldDisplayProgressDialog = false;
@@ -416,62 +426,4 @@ public class WordActivity extends AppCompatActivity
 
   }
 
-  private static class getPronunce extends AsyncTask<String, Void, String>
-      implements MediaPlayer.OnPreparedListener {
-
-    private WeakReference<Context> weakContext;
-
-    getPronunce(Context context) {
-      weakContext = new WeakReference<>(context);
-    }
-
-    @Override
-    protected String doInBackground(String... params) {
-      String url = params[0];
-      OkHttpClient client = new OkHttpClient();
-      Request request = new Request.Builder()
-          .url(url)
-          .build();
-      Response response = null;
-      try {
-        response = client.newCall(request).execute();
-        return response.body().string();
-      } catch (IOException | NullPointerException e) {
-        e.printStackTrace();
-        FirebaseCrash.report(e);
-        if (weakContext != null) {
-          Utils.makeToast(weakContext.get(),
-              weakContext.get().getString(R.string.XML_PARSE_ERROR));
-        }
-
-      }
-
-      return null;
-    }
-
-    @Override
-    protected void onPostExecute(String s) {
-      String uri = MerriamWebsterAPIParse.parse(s);
-
-      MediaPlayer mediaPlayer = new MediaPlayer();
-      mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-      mediaPlayer.setOnPreparedListener(this);
-      try {
-        mediaPlayer.setDataSource(uri);
-        mediaPlayer.prepareAsync();
-      } catch (IOException e) {
-        e.printStackTrace();
-        FirebaseCrash.report(e);
-        if (weakContext != null) {
-          Utils.makeToast(weakContext.get(),
-              weakContext.get().getString(R.string.XML_PARSE_ERROR));
-        }
-      }
-    }
-
-    @Override
-    public void onPrepared(MediaPlayer mediaPlayer) {
-      mediaPlayer.start();
-    }
-  }
 }

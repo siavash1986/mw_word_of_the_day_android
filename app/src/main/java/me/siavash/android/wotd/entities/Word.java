@@ -5,6 +5,8 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
+import me.siavash.android.wotd.util.Utils;
+
 
 @Entity
 public class Word implements Comparable<Word> {
@@ -25,7 +27,7 @@ public class Word implements Comparable<Word> {
 
   private String didYouKnow;
 
-  private String pronunciationUrl;
+  private String pronounceUrl;
 
   private boolean fav;
 
@@ -101,15 +103,15 @@ public class Word implements Comparable<Word> {
   }
 
   public String getPodcastUrl() {
-    return "http://condor.eb.com/word/podcast/wd" + this.getDate().replace("-", "") + ".mp3";
+    return Utils.getPodcastUri(this).toString();
   }
 
-  public String getPronunciationUrl() {
-    return pronunciationUrl;
+  public String getPronounceUrl() {
+    return pronounceUrl == null ? "" : pronounceUrl;
   }
 
-  public void setPronunciationUrl(String pronunciationUrl) {
-    this.pronunciationUrl = pronunciationUrl;
+  public void setPronounceUrl(String pronounceUrl) {
+    this.pronounceUrl = pronounceUrl;
   }
 
   public long getLastVisitTimeStamp() {
