@@ -106,7 +106,7 @@ public class Main2Activity extends BaseActivity
       int day = mDate.getDayOfMonth();
       DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), this, year, --month, day);
       datePickerDialog.getDatePicker().setMinDate(GlobalInfo.FIREST_PODCAST_DATE);
-      datePickerDialog.getDatePicker().setMaxDate(Utils.getCurrentEpochPacificTime());
+      datePickerDialog.getDatePicker().setMaxDate(Utils.getLatestWordEpoch(getActivity()));
       return datePickerDialog;
     }
 

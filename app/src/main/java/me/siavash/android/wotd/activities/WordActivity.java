@@ -11,6 +11,7 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -68,6 +69,8 @@ public class WordActivity extends AppCompatActivity
   ImageView stopImageView;
   @BindView(R.id.pronunciationButton)
   ImageView pronunciationImageView;
+  @BindView(R.id.progressBarPronunciation)
+  ProgressBar progressBarPronunciation;
 
 
   private static final int AD_PERM_REQUEST = 0;
@@ -177,11 +180,38 @@ public class WordActivity extends AppCompatActivity
       Utils.makeToast(this, getString(R.string.NO_NETWORK_ACCESS_MESSAGE));
     } else {
 
-      new Thread(() -> {
+      pronunciationImageView.setVisibility(View.GONE);
+      progressBarPronunciation.setVisibility(View.VISIBLE);
+
+      MediaPlayer mediaPlayer = new MediaPlayer();
+      mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+      mediaPlayer.setOnPreparedListener(MediaPlayer::start);
+      mediaPlayer.setOnCompletionListener(mp -> {
+        pronunciationImageView.setVisibility(View.VISIBLE);
+        progressBarPronunciation.setVisibility(View.GONE);
+      });
+
+      try {
+        mediaPlayer.setDataSource(word.getPronounceUrl());
+        mediaPlayer.prepareAsync();
+      } catch (Exception e) {
+        e.printStackTrace();
+        FirebaseCrash.report(e);
+        Utils.makeToast(this, getString(R.string.XML_PARSE_ERROR));
+      }
+
+/*      new Thread(() -> {
+
+        pronunciationImageView.setVisibility(View.GONE);
+        progressBarPronunciation.setVisibility(View.VISIBLE);
 
         MediaPlayer mediaPlayer = new MediaPlayer();
         mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
         mediaPlayer.setOnPreparedListener(MediaPlayer::start);
+        mediaPlayer.setOnCompletionListener(mp -> {
+          pronunciationImageView.setVisibility(View.VISIBLE);
+          progressBarPronunciation.setVisibility(View.GONE);
+        });
 
         try {
           mediaPlayer.setDataSource(word.getPronounceUrl());
@@ -189,9 +219,9 @@ public class WordActivity extends AppCompatActivity
         } catch (IOException e) {
           e.printStackTrace();
           FirebaseCrash.report(e);
-            Utils.makeToast(this, getString(R.string.XML_PARSE_ERROR));
+          Utils.makeToast(this, getString(R.string.XML_PARSE_ERROR));
         }
-      }).start();
+      }).start();*/
     }
   }
 
@@ -248,12 +278,10 @@ public class WordActivity extends AppCompatActivity
           .onPositive((d, w) -> installAnki())
           .onNegative((d, w) -> d.dismiss())
           .show();
-    }
-
-    else if (mAnkiDroid.shouldRequestPermission())
+    } else if (mAnkiDroid.shouldRequestPermission())
       mAnkiDroid.requestPermission(this, AD_PERM_REQUEST);
-    else{
-      if (Utils.hasImportedToAnki(word, this)){
+    else {
+      if (Utils.hasImportedToAnki(word, this)) {
         new MaterialDialog.Builder(this)
             .title(R.string.ImportAnkiDialogTitle)
             .content(R.string.ImportAnkiDialogContent)
@@ -271,10 +299,10 @@ public class WordActivity extends AppCompatActivity
   private void addCardsToAnkiDroid(Word word) {
     long deckId = 0;
     long modelId = 0;
-    try{
+    try {
       deckId = getDeckId();
       modelId = getModelId();
-    }catch (Exception e){
+    } catch (Exception e) {
       new MaterialDialog.Builder(this)
           .title("Anki's permissions are missing!")
           .content("Please run Anki Flash Card and grant required permissions and try again.")
@@ -288,12 +316,11 @@ public class WordActivity extends AppCompatActivity
 
 
     Long res = mAnkiDroid.getApi().addNote(modelId, deckId, fieldNames, tags);
-    if (res != null){
+    if (res != null) {
       Utils.makeToast(this, String.format("\"%s\" added to Anki!", word.getTitle()));
       word.setImportedToAnki(true);
       Utils.updateWord(word, this);
-    }
-    else{
+    } else {
       Utils.makeToast(this, "Operation failed, make sure Anki is installed and works properly");
     }
   }
@@ -347,7 +374,7 @@ public class WordActivity extends AppCompatActivity
           R.drawable.ic_favorite_black_48dp :
           R.drawable.ic_favorite_border_black_48dp);
 
-      if (word.getPronounceUrl().equals("")){
+      if (word.getPronounceUrl().equals("")) {
         this.pronunciationImageView.setVisibility(View.INVISIBLE);
       }
 

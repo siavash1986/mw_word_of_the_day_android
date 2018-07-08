@@ -10,7 +10,7 @@ public class GlobalInfo {
   public static final int LIKE_IMAGE_DATE_KEY = 1;
   public static final String KEY_FIRSTRUN = "K_FIRSTRUN";
   public static final int EXPECTED_RECORDS_DB = 4000;
-  public static final long FIREST_PODCAST_DATE = 1161734400000L;
+  public static final long FIREST_PODCAST_DATE = 1157022060000L; //1157035061000L;
 
   public static final String KEY_LATEST_WORD_DATE = "LATEST_WORD_DATE";
   public static final String REST_SERVER_ADDRESS = "138.68.0.73:8080";

@@ -13,6 +13,8 @@ import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.joda.time.LocalDate;
 
+import java.time.ZoneId;
+import java.util.TimeZone;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
@@ -98,6 +100,32 @@ public class Utils {
     return extractFuture(latestWordDate);
   }
 
+  public static long getLatestWordEpoch(final Context context) {
+    LocalDate date = LocalDate.parse(getLatestWordDate(context));
+    TimeZone aDefault = TimeZone.getDefault();
+    int rawOffset = aDefault.getRawOffset();
+
+    System.out.println("rawOffset = " + rawOffset);
+    System.out.println("dateTime = " + new DateTime(date.getYear(),
+        date.getMonthOfYear(),
+        date.getDayOfMonth(),
+        11, 5, 1)
+        .getMillis());
+
+    long diff = TimeZone.getDefault().getRawOffset();
+    if (diff <= -36000000L)
+      diff += 5000000L;
+
+    diff = diff>0 ? 0 : diff;
+
+    DateTime time = DateTime.now();
+    return new DateTime(date.getYear(),
+        date.getMonthOfYear(),
+        date.getDayOfMonth(),
+        11, 5, 1)
+        .getMillis() + diff;
+  }
+
   public static LocalDate getLatestWordLocalDate(final Context context) {
     return LocalDate.parse(getLatestWordDate(context));
   }
@@ -119,7 +147,7 @@ public class Utils {
   }
 
   public static Uri getPodcastUri(Word w) {
-    return Uri.parse(GlobalInfo.AMAZON_S3 + w.getDate().replace("-","") + ".mp3");
+    return Uri.parse(GlobalInfo.AMAZON_S3 + w.getDate().replace("-", "") + ".mp3");
   }
 
   public static void makeToast(Context context, String message) {
